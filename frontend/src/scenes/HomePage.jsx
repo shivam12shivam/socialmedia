@@ -1,10 +1,14 @@
-import React from 'react'
-import Navbar from "./Navbar"
+import React from "react";
+import ProfileCard from "./homecompo/userhome";
+import PostCard from "./homecompo/feed";
 
 function HomePage() {
   return (
-    <div>HomePage</div>
-  )
+    <>
+      <ProfileCard   />
+      <PostCard/>
+    </>
+  );
 }
 
-export default HomePage
+export default HomePage;
