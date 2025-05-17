@@ -5,11 +5,11 @@ import LogIn from "./scenes/LogIn";
 import SignUp from "./scenes/SignUp";
 import HomePage from "./scenes/HomePage";
 import ProfilePage from "./scenes/ProfilePage";
-import { setLogout } from "./redux/userSlice";
+import { setLogout,setLogin } from "./redux/userSlice";
 import axios from "axios";
 
 function App() {
-  const isAuth = Boolean(useSelector((state) => state.auth.token));
+  const isAuth = (useSelector((state) => state.auth.isAuthenticated));
   console.log(isAuth);
   const dispatch = useDispatch();
   axios.defaults.withCredentials = true;
@@ -25,15 +25,16 @@ function App() {
         console.log("res data",response.data.user);
         console.log("res data",response.data.token);
 
-
         if (response.data) {
           console.log("setting dispatch");
           dispatch(
             setLogin({
               user: response.data.user,
+              isAuthenticated:true,
               token: response.data.token, // Adjust based on your API response
             })
           );
+          console.log("is Auth status: ", isAuth);
         }
       }
       catch (error) {
@@ -59,7 +60,7 @@ function App() {
         />
         <Route
           path="/home"
-          element={isAuth ? <HomePage /> : <Navigate to="/" />}
+          element={isAuth?<HomePage />:<Navigate to="/signup" /> }
         />
         <Route
           path="/profile/:userId"

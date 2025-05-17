@@ -5,6 +5,7 @@ const initialState = {
   token: null,
   posts: [],
   mode: "light",
+  isAuthenticated: false,
 };
 
 const userSlice = createSlice({
@@ -17,10 +18,12 @@ const userSlice = createSlice({
     setLogin: (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.isAuthenticated = action.payload.isAuthenticated;
     },
     setLogout: (state) => {
       state.user = null;
       state.token = null;
+      state.isAuthenticated = false;
     },
     setFriends: (state, action) => {
       if (state.user) {
