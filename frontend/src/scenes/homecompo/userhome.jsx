@@ -37,7 +37,7 @@ const ProfileCard = () => {
           />
           <Typography variant="h6">{user.firstName}</Typography>
           <Typography variant="body2" color="text.secondary">
-            {user.friends.length}
+            {user?.friends?.length}
           </Typography>
         </Box>
 

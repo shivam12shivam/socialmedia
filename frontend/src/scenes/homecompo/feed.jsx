@@ -13,19 +13,21 @@ import {
 import { Image, Audiotrack, AttachFile, VideoFile } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import PostsFeed from "./AllPosts";
+import axios from "axios";
 
 const PostCard = () => {
   const [image, setImage] = useState(null);
   const [description, setDescription] = useState("");
-  const user = useSelector((state) => {
-    state.auth.user;
-  });
+  const user = useSelector((state) => state.auth.user);
+  const [file, setFile] = useState(null);
+  console.log("insid feed.jsx", user);
   const token = useSelector((state) => state.auth.token);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImage(URL.createObjectURL(file));
+      setFile(file);
     }
   };
 
@@ -37,20 +39,25 @@ const PostCard = () => {
       formData.append("picture", file);
     }
 
-    const response = await axios.post("http://localhost:3000/posts", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    });
-
-    if (response.status === 201) {
-      // Clear form
-      setDescription("");
-      setImage(null);
-      setFile(null);
-      alert("Post created successfully!");
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/posts",
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("response from backend", response);
+      if (response.status === 201) {
+        // Clear form
+        setDescription("");
+        setImage(null);
+        setFile(null);
+        alert("Post created successfully!");
+      }
+    } catch (error) {
+      console.error("Error creating post:", error);
+      alert("Failed to create post.");
     }
   };
 
