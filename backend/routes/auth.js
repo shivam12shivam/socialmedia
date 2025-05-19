@@ -1,9 +1,10 @@
 import express from "express";
-import { login, register } from "../controllers/auth.js";
+import { login, logout, register } from "../controllers/auth.js";
 import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 router.post("/login", login);
 router.post("/signup", register);
+router.post("/logout", logout);
 router.get("/check-auth", verifyToken, async (req, res) => {
   try {
     console.log("inside check auth \n");

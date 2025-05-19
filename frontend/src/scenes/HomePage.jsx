@@ -5,7 +5,7 @@ import Right from "./homecompo/right";
 function HomePage() {
   return (
     <>
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen justify-around">
         {/* Left Column - 25% width */}
         <div className="w-1/4">
           <ProfileCard />
@@ -17,7 +17,7 @@ function HomePage() {
         </div>
 
         {/* Right Column - 25% width */}
-        <div className="w-1/6">
+        <div className="w-1/6 justify-end">
           <Right />
         </div>
       </div>

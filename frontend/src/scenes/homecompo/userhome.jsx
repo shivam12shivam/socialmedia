@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 
 const ProfileCard = () => {
   const user = useSelector((state) => state.auth.user);
-
+  const friends = useSelector((state) => state.auth.user?.friends || []);
   return (
     <Card sx={{ width: 300, borderRadius: 4 }}>
       <CardContent>
@@ -37,7 +37,7 @@ const ProfileCard = () => {
           />
           <Typography variant="h6">{user.firstName}</Typography>
           <Typography variant="body2" color="text.secondary">
-            {user?.friends?.length}
+            Friends: {friends.length}
           </Typography>
         </Box>
 

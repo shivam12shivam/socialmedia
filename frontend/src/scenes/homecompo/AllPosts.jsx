@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { setFriends } from "../../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,7 +17,7 @@ import {
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-
+import { useNavigate } from "react-router-dom";
 const PostsFeed = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,7 +25,7 @@ const PostsFeed = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
   const friends = currentUser?.friends || [];
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -39,7 +41,7 @@ const PostsFeed = () => {
       }
     };
     fetchPosts();
-  }, [token]);
+  }, [token, setFriends]);
 
   if (loading) {
     return <Typography>Loading posts...</Typography>;
@@ -62,6 +64,10 @@ const PostsFeed = () => {
     }
   };
 
+  const handleprofilepage = async (Id) => {
+    navigate(`/profile/${Id}`);
+  };
+
   return (
     <Box sx={{ mt: 4, width: 500 }}>
       {posts.map((post) => {
@@ -79,14 +85,16 @@ const PostsFeed = () => {
               {/* Post Header */}
               <Box display="flex" alignItems="center" mb={2}>
                 <Avatar src={post.userPicturePath} />
-                <Box ml={2}>
-                  <Typography variant="subtitle1">
-                    {post.firstName} {post.lastName}
-                  </Typography>
-                  <Typography variant="caption" color="textSecondary">
-                    {post.location}
-                  </Typography>
-                </Box>
+                <div className="hover:cursor-pointer" onClick={() => handleprofilepage(post.userId)}>
+                  <Box ml={2}>
+                    <Typography variant="subtitle1">
+                      {post.firstName} {post.lastName}
+                    </Typography>
+                    <Typography variant="caption" color="textSecondary">
+                      {post.location}
+                    </Typography>
+                  </Box>
+                </div>
                 <IconButton
                   onClick={() => toggleFriend(post.userId)}
                   sx={{ ml: "auto" }}
