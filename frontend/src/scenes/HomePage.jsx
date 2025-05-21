@@ -1,7 +1,7 @@
 import React from "react";
 import ProfileCard from "./homecompo/userhome";
 import PostCard from "./homecompo/feed";
-import Right from "./homecompo/right";
+import Right from "./homecompo/Right";
 
 function HomePage() {
   return (
