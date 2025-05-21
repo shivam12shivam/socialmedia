@@ -24,7 +24,7 @@ const PostsFeed = () => {
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
-  const friends = currentUser?.friends || [];
+  const friends = useSelector((state) => state.auth.user?.friends || []);
   const navigate = useNavigate();
   useEffect(() => {
     const fetchPosts = async () => {
@@ -41,7 +41,7 @@ const PostsFeed = () => {
       }
     };
     fetchPosts();
-  }, [token, setFriends]);
+  }, [token,friends]);
 
   if (loading) {
     return <Typography>Loading posts...</Typography>;
@@ -58,7 +58,8 @@ const PostsFeed = () => {
         }
       );
       // res.data should be the updated friends array:
-      dispatch(setFriends(res.data));
+      const ids=res.data.map((f)=> f._id);
+      dispatch(setFriends(ids));
     } catch (err) {
       console.error("Could not update friends:", err);
     }
@@ -95,16 +96,20 @@ const PostsFeed = () => {
                     </Typography>
                   </Box>
                 </div>
+
+                {post.userId!=currentUser._id && 
                 <IconButton
                   onClick={() => toggleFriend(post.userId)}
                   sx={{ ml: "auto" }}
                 >
+                    
                   {friends.includes(post.userId) ? (
                     <PersonRemoveIcon sx={{ color: "#f44336" }} />
                   ) : (
                     <PersonAddIcon sx={{ color: "#4caf50" }} />
                   )}
                 </IconButton>
+                }
               </Box>
 
               {/* Post Description */}

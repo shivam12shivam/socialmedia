@@ -1,5 +1,3 @@
-// FriendsList.jsx
-
 import React, { useEffect, useState } from "react";
 import {
   Box,
@@ -13,17 +11,18 @@ import {
   Divider,
   CircularProgress,
 } from "@mui/material";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setFriends } from "../../redux/userSlice";
 
 const FriendsList = () => {
-  const [friends, setFriends] = useState([]);
+  const [friends, setFriend] = useState([]);
   const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.auth.user);
   const token = useSelector((state) => state.auth.token);
-  const friend = useSelector((state) => state.auth.user?.firends);
+  const friend = useSelector((state) => state.auth.user?.friends);
+  const dispatch = useDispatch();
   const fetchFriends = async () => {
     if (!user?._id) return;
     setLoading(true);
@@ -35,7 +34,8 @@ const FriendsList = () => {
           withCredentials: true,
         }
       );
-      setFriends(res.data);
+      console.log("fetch frriends in right", res.data);
+      setFriend(res.data);
     } catch (err) {
       console.error("Failed to load friends", err);
     } finally {
@@ -45,7 +45,7 @@ const FriendsList = () => {
 
   const toggleFriend = async (friendId) => {
     try {
-      await axios.patch(
+      const res = await axios.patch(
         `http://localhost:3000/users/${user._id}/friends/${friendId}`,
         {},
         {
@@ -53,6 +53,7 @@ const FriendsList = () => {
           withCredentials: true,
         }
       );
+      dispatch(setFriends(res.data));
       fetchFriends();
     } catch (err) {
       console.error("Failed to add/remove friend", err);
@@ -61,7 +62,7 @@ const FriendsList = () => {
 
   useEffect(() => {
     fetchFriends();
-  }, [user?._id,friend]);
+  }, [user?._id, friend]);
 
   if (loading) {
     return (
