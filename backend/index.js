@@ -27,7 +27,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin: "https://socialmedia-blush.vercel.app", // Your frontend URL
     credentials: true, // Allow credentials
   })
 );
