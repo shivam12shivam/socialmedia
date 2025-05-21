@@ -14,6 +14,8 @@ import {
   Avatar,
   Typography,
   IconButton,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -26,6 +28,8 @@ const PostsFeed = () => {
   const currentUser = useSelector((state) => state.auth.user);
   const friends = useSelector((state) => state.auth.user?.friends || []);
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -41,7 +45,7 @@ const PostsFeed = () => {
       }
     };
     fetchPosts();
-  }, [token,friends]);
+  }, [token, friends]);
 
   if (loading) {
     return <Typography>Loading posts...</Typography>;
@@ -58,7 +62,7 @@ const PostsFeed = () => {
         }
       );
       // res.data should be the updated friends array:
-      const ids=res.data.map((f)=> f._id);
+      const ids = res.data.map((f) => f._id);
       dispatch(setFriends(ids));
     } catch (err) {
       console.error("Could not update friends:", err);
@@ -70,7 +74,15 @@ const PostsFeed = () => {
   };
 
   return (
-    <Box sx={{ mt: 4, width: 500 }}>
+    <Box
+      sx={{
+        mt: 4,
+        px: isMobile ? 1 : 4,
+        width: "100%",
+        maxWidth: 600,
+        mx: "auto",
+      }}
+    >
       {posts.map((post) => {
         // ← compute the correct asset path here:
         const imageUrl = post.picturePath.startsWith("/assets/")
@@ -86,7 +98,10 @@ const PostsFeed = () => {
               {/* Post Header */}
               <Box display="flex" alignItems="center" mb={2}>
                 <Avatar src={post.userPicturePath} />
-                <div className="hover:cursor-pointer" onClick={() => handleprofilepage(post.userId)}>
+                <div
+                  className="hover:cursor-pointer"
+                  onClick={() => handleprofilepage(post.userId)}
+                >
                   <Box ml={2}>
                     <Typography variant="subtitle1">
                       {post.firstName} {post.lastName}
@@ -97,19 +112,18 @@ const PostsFeed = () => {
                   </Box>
                 </div>
 
-                {post.userId!=currentUser._id && 
-                <IconButton
-                  onClick={() => toggleFriend(post.userId)}
-                  sx={{ ml: "auto" }}
-                >
-                    
-                  {friends.includes(post.userId) ? (
-                    <PersonRemoveIcon sx={{ color: "#f44336" }} />
-                  ) : (
-                    <PersonAddIcon sx={{ color: "#4caf50" }} />
-                  )}
-                </IconButton>
-                }
+                {post.userId != currentUser._id && (
+                  <IconButton
+                    onClick={() => toggleFriend(post.userId)}
+                    sx={{ ml: "auto" }}
+                  >
+                    {friends.includes(post.userId) ? (
+                      <PersonRemoveIcon sx={{ color: "#f44336" }} />
+                    ) : (
+                      <PersonAddIcon sx={{ color: "#4caf50" }} />
+                    )}
+                  </IconButton>
+                )}
               </Box>
 
               {/* Post Description */}
@@ -122,7 +136,13 @@ const PostsFeed = () => {
                 <img
                   src={`http://localhost:3000${imageUrl}`}
                   alt="Post content"
-                  style={{ width: "100%", borderRadius: 8, marginBottom: 16 }}
+                  style={{
+                    width: "100%",
+                    borderRadius: 8,
+                    marginBottom: 16,
+                    maxHeight: 400,
+                    objectFit: "cover",
+                  }}
                 />
               )}
 

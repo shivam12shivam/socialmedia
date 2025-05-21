@@ -62,86 +62,118 @@ const PostCard = () => {
   };
 
   return (
-    <div>
-      <Card
-        sx={{ backgroundColor: "#1e1e1e", color: "white", p: 2, width: 500 }}
+    <div className="">
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        sx={{
+          px: 2,
+          justifyContent: { xs: "center", md: "flex-start" },
+           // Shift left on desktop
+        }}
       >
-        <CardContent>
-          <Box display="flex" alignItems="center" gap={2}>
-            <Avatar src="/profile.jpg" />
-            <TextField
-              fullWidth
-              variant="outlined"
-              value={description}
-              placeholder="What's on your mind..."
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
-              InputProps={{
-                style: {
-                  backgroundColor: "#2e2e2e",
-                  color: "white",
-                  borderRadius: 10,
-                },
-              }}
-            />
-          </Box>
-
-          <Box
-            mt={2}
-            p={2}
-            border="2px dashed #00bcd4"
-            borderRadius={2}
-            textAlign="center"
-            sx={{ cursor: "pointer" }}
-            onClick={() => document.getElementById("imageInput").click()}
-          >
-            {image ? (
-              <img src={image} alt="Uploaded" style={{ maxWidth: "100%" }} />
-            ) : (
-              <Typography variant="body2" color="#aaa">
-                Add Image Here
-              </Typography>
-            )}
-            <input
-              id="imageInput"
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={handleImageUpload}
-            />
-          </Box>
-
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            mt={2}
-          >
-            <Box display="flex" gap={2}>
-              <IconButton color="primary">
-                <Image />
-              </IconButton>
-              <IconButton color="primary">
-                <VideoFile />
-              </IconButton>
-              <IconButton color="primary">
-                <AttachFile />
-              </IconButton>
-              <IconButton color="primary">
-                <Audiotrack />
-              </IconButton>
+        <Card
+          sx={{
+            backgroundColor: "#1e1e1e",
+            color: "white",
+            p: 2,
+            width: {
+              xs: "100%",
+              sm: "90%",
+              md: "70%",
+              lg: "77%",
+              xl: "40%",
+            },
+          }}
+        >
+          <CardContent>
+            <Box display="flex" alignItems="center" gap={2}>
+              <Avatar src="/profile.jpg" />
+              <TextField
+                fullWidth
+                variant="outlined"
+                value={description}
+                placeholder="What's on your mind..."
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+                InputProps={{
+                  style: {
+                    backgroundColor: "#2e2e2e",
+                    color: "white",
+                    borderRadius: 10,
+                  },
+                }}
+              />
             </Box>
-            <Button
-              onClick={handleclick}
-              variant="contained"
-              sx={{ borderRadius: "20px" }}
+
+            <Box
+              mt={2}
+              p={2}
+              border="2px dashed #00bcd4"
+              borderRadius={2}
+              textAlign="center"
+              sx={{ cursor: "pointer" }}
+              onClick={() => document.getElementById("imageInput").click()}
             >
-              POST
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
+              {image ? (
+                <img src={image} alt="Uploaded" style={{ maxWidth: "100%" }} />
+              ) : (
+                <Typography variant="body2" color="#aaa">
+                  Add Image Here
+                </Typography>
+              )}
+              <input
+                id="imageInput"
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={handleImageUpload}
+              />
+            </Box>
+
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              mt={2}
+              flexDirection={{ xs: "column", md: "row" }}
+              gap={2}
+            >
+              <Box
+                display="flex"
+                gap={1}
+                flexWrap="wrap"
+                justifyContent={{ xs: "center", sm: "flex-start" }}
+              >
+                <IconButton color="primary">
+                  <Image fontSize="small" />
+                </IconButton>
+                <IconButton color="primary">
+                  <VideoFile fontSize="small" />
+                </IconButton>
+                <IconButton color="primary">
+                  <AttachFile fontSize="small" />
+                </IconButton>
+                <IconButton color="primary">
+                  <Audiotrack fontSize="small" />
+                </IconButton>
+              </Box>
+              <Button
+                onClick={handleclick}
+                variant="contained"
+                sx={{
+                  borderRadius: "20px",
+                  width: { xs: "100%", sm: "auto" },
+                }}
+              >
+                POST
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
 
       <PostsFeed />
     </div>
