@@ -23,7 +23,7 @@ export default function SignUp() {
     };
     setSubmittedData(formData);
     console.log(formData);
-    const res = await axios.post("http://localhost:3000/auth/signup", formData);
+    const res = await axios.post("https://socialmedia-q2vx.onrender.com/auth/signup", formData);
     console.log("response from backend", res.data);
     // API call would go here
   };

@@ -28,7 +28,7 @@ const FriendsList = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `http://localhost:3000/users/${user._id}/friends`,
+        `https://socialmedia-q2vx.onrender.com/users/${user._id}/friends`,
         {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
@@ -46,7 +46,7 @@ const FriendsList = () => {
   const toggleFriend = async (friendId) => {
     try {
       const res = await axios.patch(
-        `http://localhost:3000/users/${user._id}/friends/${friendId}`,
+        `https://socialmedia-q2vx.onrender.com/users/${user._id}/friends/${friendId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -90,7 +90,7 @@ const FriendsList = () => {
             }
           >
             <ListItemAvatar>
-              <Avatar src={`http://localhost:3000${f.picturePath}`} />
+              <Avatar src={`https://socialmedia-q2vx.onrender.com${f.picturePath}`} />
             </ListItemAvatar>
             <ListItemText
               primary={

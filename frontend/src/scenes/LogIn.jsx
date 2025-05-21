@@ -24,7 +24,7 @@ export default function LogIn() {
       // Replace with your actual login API call
       console.log("Login data:", data);
       const res = await axios.post(
-        "http://localhost:3000/auth/login",
+        "https://socialmedia-q2vx.onrender.com/auth/login",
         data,{ withCredentials:true }
       );
       console.log("response from backend", res.data);

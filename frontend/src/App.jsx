@@ -17,7 +17,7 @@ function App() {
     const checkAuthStatus = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/auth/check-auth",
+          "https://socialmedia-q2vx.onrender.com/auth/check-auth",
           {
             withCredentials: true,
           }

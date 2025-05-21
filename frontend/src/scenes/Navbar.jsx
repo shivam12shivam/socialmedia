@@ -37,7 +37,7 @@ function DrawerAppBar(props) {
       label: "Logout",
       path: "/signup",
       onClick: async () => {
-        await axios.post("http://localhost:3000/auth/logout", null, {
+        await axios.post("https://socialmedia-q2vx.onrender.com/auth/logout", null, {
           withCredentials: true,
         });
       },

@@ -41,7 +41,7 @@ const PostCard = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/posts",
+        "https://socialmedia-q2vx.onrender.com/posts",
         formData,
         {
           withCredentials: true,

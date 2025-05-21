@@ -33,7 +33,7 @@ const PostsFeed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/posts", {
+        const response = await axios.get("https://socialmedia-q2vx.onrender.com/posts", {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
@@ -54,7 +54,7 @@ const PostsFeed = () => {
   const toggleFriend = async (authorId) => {
     try {
       const res = await axios.patch(
-        `http://localhost:3000/users/${currentUser._id}/friends/${authorId}`,
+        `https://socialmedia-q2vx.onrender.com/users/${currentUser._id}/friends/${authorId}`,
         {},
         {
           withCredentials: true,
@@ -134,7 +134,7 @@ const PostsFeed = () => {
               {/* Post Image */}
               {post.picturePath && (
                 <img
-                  src={`http://localhost:3000${imageUrl}`}
+                  src={`https://socialmedia-q2vx.onrender.com${imageUrl}`}
                   alt="Post content"
                   style={{
                     width: "100%",

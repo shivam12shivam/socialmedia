@@ -27,7 +27,7 @@ function ProfilePage() {
   useEffect(() => {
     const fetchdata = async () => {
       const res = await axios.get(
-        `http://localhost:3000/posts/${userId}/posts`,
+        `https://socialmedia-q2vx.onrender.com/posts/${userId}/posts`,
         {
           withCredentials: true,
         }
@@ -191,7 +191,7 @@ function ProfilePage() {
                   {/* Post Image */}
                   {post.picturePath && (
                     <img
-                      src={`http://localhost:3000${imageUrl}`}
+                      src={`https://socialmedia-q2vx.onrender.com${imageUrl}`}
                       alt="Post content"
                       style={{
                         width: "100%",
