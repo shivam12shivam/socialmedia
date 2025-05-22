@@ -9,6 +9,7 @@ import { setLogout,setLogin } from "./redux/userSlice";
 import axios from "axios";
 
 function App() {
+  axios.defaults.withCredentials = true;
   const isAuth = (useSelector((state) => state.auth.isAuthenticated));
   console.log(isAuth);
   const dispatch = useDispatch();

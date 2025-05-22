@@ -15,8 +15,6 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
 import { users, posts } from "./data/index.js";
-import User from "./models/User.js";
-import Post from "./models/Post.js";
 import cookieParser from "cookie-parser";
 
 const __filename = fileURLToPath(import.meta.url);
