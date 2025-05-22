@@ -141,7 +141,7 @@ const PostsFeed = () => {
                     borderRadius: 8,
                     marginBottom: 16,
                     maxHeight: 400,
-                    objectFit: "cover",
+                    objectFit: "contain",
                   }}
                 />
               )}
